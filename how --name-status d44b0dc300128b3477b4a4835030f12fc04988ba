@@ -1,0 +1,215 @@
+[33mcommit dc7ceabcb9a83162cd1f2a2c596d6dc2b47e019d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sat Jun 7 07:43:26 2025 +0000
+
+    Update .gitignore
+
+[33mcommit f6933afbed6fde98ccccf826850a81838eddd60a[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sat Jun 7 07:27:53 2025 +0000
+
+    not yet ready for production
+
+[33mcommit 224976138a9f8576528ae37f20b839eecc1f47a2[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sat Jun 7 07:25:20 2025 +0000
+
+    production not yet ready
+
+[33mcommit d44b0dc300128b3477b4a4835030f12fc04988ba[m
+Author: Arnob Bokshi <153275698+Arnob616@users.noreply.github.com>
+Date:   Fri Jun 6 17:35:41 2025 +0600
+
+    Fix OpenAI Environment Variable Error
+
+[33mcommit a8fb4c7dfd86bb57836c0656ef747980b98ec419[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Tue May 20 05:55:25 2025 +0000
+
+    content validator added
+
+[33mcommit ed642a44935808ca19869c2600b200acc619005f[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Tue May 20 05:37:15 2025 +0000
+
+    backend updated
+
+[33mcommit e924fc5d07f6ec3b0c0b5987f624148af7732404[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Tue May 20 04:48:44 2025 +0000
+
+    Design modified
+
+[33mcommit e6f32a0f9cb08a5d50249374959389e81071a1ad[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Tue May 13 13:00:11 2025 +0000
+
+    community feedback forum and chatbot added with overall  customization of  the application
+
+[33mcommit 89722b035c10b816ec17dbb54a37983553ee60d4[m
+Author: Arnob Bokshi <153275698+arnob1001@users.noreply.github.com>
+Date:   Tue Apr 1 12:29:21 2025 +0600
+
+    Update README.md
+
+[33mcommit 963ad282f031911de28a34be950860631c125435[m
+Author: Arnob Bokshi <153275698+arnob1001@users.noreply.github.com>
+Date:   Tue Apr 1 12:28:46 2025 +0600
+
+    Update README.md
+
+[33mcommit e07b6c44eff16cfddebd4c7b2d72329eb0551481[m
+Author: Arnob Bokshi <153275698+arnob1001@users.noreply.github.com>
+Date:   Tue Apr 1 12:27:30 2025 +0600
+
+    Update README.md
+
+[33mcommit 7acee8939ad1f428add0c71199c26ce16784f666[m
+Author: Arnob Bokshi <153275698+arnob1001@users.noreply.github.com>
+Date:   Tue Apr 1 12:26:06 2025 +0600
+
+    Update README.md
+
+[33mcommit 78fa36f30044ef431e8c9fc2ab5e062872c4ded1[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Tue Apr 1 06:08:07 2025 +0000
+
+    design modified
+
+[33mcommit 87e45159d67ad8850558e329b167f29371f1eeda[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Mon Mar 31 18:27:47 2025 +0000
+
+    deploy ready
+
+[33mcommit 6e3d56a792a8c7d5c62f11e6b34539f6052b234e[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Mon Mar 31 18:20:16 2025 +0000
+
+    deploy ready
+
+[33mcommit 837beb8ba3b9c4e07c0043dc79b834f49e4da4d7[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Mon Mar 31 18:12:00 2025 +0000
+
+    json updated
+
+[33mcommit e16c1932535054a9c562b1f0f1a3dcf0c8423c2d[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Mon Mar 31 17:20:22 2025 +0000
+
+    dploy ready
+
+[33mcommit fcea4a0bc6814dc0ef4bce295d043be0f9f81ee4[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Mon Mar 31 16:44:23 2025 +0000
+
+    deploy ready
+
+[33mcommit 59a755215747ca3a6e67eb4f6b2e440e127dcccc[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Mon Mar 31 12:30:36 2025 +0000
+
+    deploy ready
+
+[33mcommit 6dc66f19a782510a985dd4c77230488b3de2c028[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Mon Mar 31 11:15:30 2025 +0000
+
+    added
+
+[33mcommit 9303dde56a14eb56ac38ee3288a82246f4e36057[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Mon Mar 31 11:15:04 2025 +0000
+
+    deploy ready
+
+[33mcommit 2dfd5261c11104a8c42e21f4a07031d232cbf71d[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sun Mar 30 12:21:21 2025 +0000
+
+    Deploy ready
+
+[33mcommit a6b65973abd4eed1aa97251143826fcba83f1ff1[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sun Mar 30 11:10:32 2025 +0000
+
+    added
+
+[33mcommit d9f5a3665afb18e91332388d3a85212439b7125a[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sun Mar 30 08:04:08 2025 +0000
+
+    eslint error fixed
+
+[33mcommit 24e54a8c056ed993ce998f310d3d61006a006071[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sat Mar 29 15:04:22 2025 +0000
+
+    add
+
+[33mcommit e10d239568242a05bae1edbc1f130476fbe935c7[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sat Mar 29 14:25:42 2025 +0000
+
+    added
+
+[33mcommit 5b2aa33ca354707b837d2969f4f0f145f1066860[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sat Mar 29 14:22:35 2025 +0000
+
+    add
+
+[33mcommit 1e844e9a6dc2eec3656d5942195b42b40cb2220b[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sat Mar 29 13:47:48 2025 +0000
+
+    add
+
+[33mcommit 158595618488bb33ba3d46fed4df942c75c79ea3[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sat Mar 29 13:10:08 2025 +0000
+
+    added
+
+[33mcommit 525217e0b570fe3efb9dcdc82ea834af008be243[m
+Author: ASarnob1010 <ararnob1415@gmail.com>
+Date:   Sat Mar 29 09:00:45 2025 +0000
+
+    added
+
+[33mcommit f8f711d0a0a64a97214f95fdeb01183026bdde18[m
+Author: Arnob Bokshi <153275698+arnob1001@users.noreply.github.com>
+Date:   Sat Mar 29 08:37:58 2025 +0000
+
+    added
+
+[33mcommit b6c9af3a4db6546172021953ba0cbdfe827a61b0[m
+Author: Arnob Bokshi <153275698+arnob1001@users.noreply.github.com>
+Date:   Fri Mar 28 13:38:34 2025 +0000
+
+    color added
+
+[33mcommit 06541e8ef2f57cd28a8d7016c451c68cc68cc7fd[m
+Author: Arnob Bokshi <153275698+arnob1001@users.noreply.github.com>
+Date:   Fri Mar 28 07:58:59 2025 +0000
+
+    Initial commit
+
+[33mcommit 406626d0588708b20ff7b32df2a608a17bd06b17[m
+Author: Arnob Bokshi <153275698+arnob1001@users.noreply.github.com>
+Date:   Fri Mar 28 07:46:49 2025 +0000
+
+    done
+
+[33mcommit 630cae1d26dc81e79161c4baa4c70222640f0eff[m
+Author: Arnob Bokshi <153275698+arnob1111@users.noreply.github.com>
+Date:   Wed Feb 5 22:39:20 2025 +0600
+
+    Add files via upload
+
+[33mcommit e1d9f63f1175866ca963f73084c77c8fff3bc3ed[m
+Author: Arnob Bokshi <153275698+arnob1111@users.noreply.github.com>
+Date:   Wed Feb 5 22:37:55 2025 +0600
+
+    Initial commit
