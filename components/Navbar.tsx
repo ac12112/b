@@ -65,13 +65,13 @@ export default function Navbar() {
             </motion.div>
 
             {/* Main Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex item-left space-x-7">
               {[
                 ['Submit Report', '/submit-report'],
                 ['Track Report', '/track-report'],
                 ['User Guide', '/how-it-works'],
                 ['Community', '/community'],
-                ['Emergency Contacts', '/emergency-contacts'],
+                ['Contacts', '/emergency-contacts'],
               ].map(([name, href], index) => (
                 <motion.div
                   key={name}
