@@ -21,16 +21,22 @@ model Report {
   longitude   Float?
   type        ReportType
   reportType  String
+  userId      String?
+  user        User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([reportId])
+  @@index([userId])
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       String   @id @default(cuid())
   email    String @unique
   name     String
   password String
   role     Role   @default(USER)
+  reports  Report[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum ReportStatus {

@@ -137,11 +137,18 @@ export default function Dashboard() {
   const fetchReports = async () => {
     setIsLoading(true);
     try {
+      // Admin/Moderator can see all reports
       const response = await fetch("/api/reports");
       const data = await response.json();
-      setReports(data);
+      if (Array.isArray(data)) {
+        setReports(data);
+      } else {
+        console.error("Invalid reports data:", data);
+        setReports([]);
+      }
     } catch (error) {
       console.error("Error fetching reports:", error);
+      setReports([]);
     } finally {
       setIsLoading(false);
     }

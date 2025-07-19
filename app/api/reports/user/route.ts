@@ -11,9 +11,11 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // For now, return all reports since we don't have user association in the current schema
-    // In a real implementation, you would filter by userId
+    // Fetch reports for the authenticated user only
     const reports = await prisma.report.findMany({
+      where: {
+        userId: session.user.id,
+      },
       orderBy: { createdAt: "desc" },
       select: {
         id: true,
@@ -29,6 +31,7 @@ export async function GET() {
         createdAt: true,
         updatedAt: true,
         reportType: true,
+        userId: true,
       },
     });
 

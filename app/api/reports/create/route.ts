@@ -26,7 +26,6 @@ export async function POST(request: Request) {
       longitude,
       image,
       status,
-      userId,
     } = await request.json();
 
     // Validate required fields
@@ -36,18 +35,21 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    // Create report with user association
     const report = await prisma.report.create({
       data: {
         reportId,
         type: type as ReportType,
         title,
         description,
-        reportType: specificType,
-        location,
+        reportType: specificType || "Other",
+        location: location || null,
         latitude: latitude || null,
         longitude: longitude || null,
         image: image || null,
         status: status || "PENDING",
+        userId: session.user.id, // Associate report with authenticated user
       },
     });
 
@@ -56,6 +58,13 @@ export async function POST(request: Request) {
       reportId: report.reportId,
       id: report.id,
       message: "Report submitted successfully",
+      report: {
+        id: report.id,
+        reportId: report.reportId,
+        title: report.title,
+        status: report.status,
+        createdAt: report.createdAt,
+      },
     });
   } catch (error) {
     console.error("Error creating report:", error);

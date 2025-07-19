@@ -186,7 +186,6 @@ export function ReportForm({ onComplete }: ReportFormProps) {
         longitude: coordinates.longitude,
         image: image,
         status: "PENDING",
-        userId: session.user.id,
       };
 
       const response = await fetch("/api/reports/create", {

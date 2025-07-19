@@ -115,16 +115,23 @@ export default function UserDashboard() {
     if (status === "authenticated" && session?.user) {
       const fetchReports = async () => {
         try {
-          // Fetch only user's own reports
           const res = await fetch("/api/reports/user");
           if (res.ok) {
             const data = await res.json();
-            setReports(data);
+            console.log("Fetched user reports:", data);
+            if (Array.isArray(data)) {
+              setReports(data);
+            } else {
+              console.error("Invalid reports data format:", data);
+              setReports([]);
+            }
           } else {
             console.error("Failed to fetch reports:", res.statusText);
+            setReports([]);
           }
         } catch (error) {
           console.error("Error fetching reports:", error);
+          setReports([]);
         }
       };
       
