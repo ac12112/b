@@ -1,4 +1,5 @@
 'use client';
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
@@ -24,14 +25,37 @@ const SecureBadge = dynamic(
 );
 
 export default function SubmitReport() {
+  const { data: session, status } = useSession();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  // Redirect to sign in if not authenticated
+  useEffect(() => {
+    if (status === "loading") return;
+    
+    if (status === "unauthenticated") {
+      window.location.href = "/auth/signin?callbackUrl=/submit-report";
+      return;
+    }
+  }, [status]);
   if (!isMounted) return null;
 
+  // Show loading while checking authentication
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-black">
+        <div className="rounded-full h-20 w-20 border-t-4 border-b-4 border-[#07D348] animate-spin"></div>
+      </div>
+    );
+  }
+
+  // Don't render if not authenticated
+  if (status === "unauthenticated") {
+    return null;
+  }
   return (
     <div className="relative min-h-screen bg-black selection:bg-sky-500/20 overflow-hidden">
       <ClientOnlyGradient />
@@ -62,8 +86,7 @@ export default function SubmitReport() {
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
-              Your safety is our priority. All submissions are encrypted and
-              anonymized.
+              Welcome {session?.user?.name}! Your safety is our priority. All submissions are encrypted and secure.
             </p>
           </div>
 

@@ -2,15 +2,17 @@
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SignIn() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -26,7 +28,8 @@ export default function SignIn() {
       if (result?.error) {
         setError("Invalid credentials");
       } else {
-        router.push("/dashboard");
+        // Redirect based on user role or callback URL
+        router.push(callbackUrl);
       }
     } catch (_error) {  // Fixed unused variable warning
       setError("An error occurred during sign in");

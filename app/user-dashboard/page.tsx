@@ -32,7 +32,7 @@ export default function UserDashboard() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Redirect if not authorized
+  // Redirect if not authenticated or not a user
   useEffect(() => {
     if (status === "loading") return;
     
@@ -41,13 +41,13 @@ export default function UserDashboard() {
       return;
     }
     
-    if (session?.user?.role === "ADMIN" || session?.user?.role === "MODERATOR") {
-      window.location.href = "/dashboard";
-      return;
-    }
-    
+    // Allow USER role to access user dashboard
     if (session?.user?.role !== "USER") {
-      window.location.href = "/auth/signin";
+      if (session?.user?.role === "ADMIN" || session?.user?.role === "MODERATOR") {
+        window.location.href = "/dashboard";
+      } else {
+        window.location.href = "/auth/signin";
+      }
       return;
     }
   }, [status, session]);
@@ -112,13 +112,16 @@ export default function UserDashboard() {
   }, []);
 
   useEffect(() => {
-    if (status === "authenticated" && session?.user?.role === "USER") {
+    if (status === "authenticated" && session?.user) {
       const fetchReports = async () => {
         try {
-          const res = await fetch("/api/reports");
+          // Fetch only user's own reports
+          const res = await fetch("/api/reports/user");
           if (res.ok) {
             const data = await res.json();
             setReports(data);
+          } else {
+            console.error("Failed to fetch reports:", res.statusText);
           }
         } catch (error) {
           console.error("Error fetching reports:", error);
@@ -131,13 +134,24 @@ export default function UserDashboard() {
 
   const handleSubmitReport = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!session?.user) {
+      alert("Please sign in to submit a report");
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
-      const res = await fetch("/api/reports", {
+      const reportData = {
+        ...newReport,
+        userId: session.user.id
+      };
+      
+      const res = await fetch("/api/reports/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newReport)
+        body: JSON.stringify(reportData)
       });
 
       if (res.ok) {
@@ -149,8 +163,14 @@ export default function UserDashboard() {
           location: "",
           image: ""
         });
-        const updatedReports = await fetch("/api/reports").then(res => res.json());
-        setReports(updatedReports);
+        // Refresh reports
+        const updatedReports = await fetch("/api/reports/user").then(res => res.json());
+        if (Array.isArray(updatedReports)) {
+          setReports(updatedReports);
+        }
+      } else {
+        const errorData = await res.json();
+        alert(errorData.error || "Failed to submit report");
       }
     } finally {
       setIsSubmitting(false);
@@ -169,7 +189,7 @@ export default function UserDashboard() {
     );
   }
 
-  if (status === "unauthenticated" || session?.user?.role !== "USER") {
+  if (status === "unauthenticated") {
     return null;
   }
 

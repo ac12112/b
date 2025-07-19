@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { useState, useCallback } from "react";
 import { LocationInput } from "./LocationInput";
 import crypto from "crypto";
@@ -40,6 +41,7 @@ interface ImageAnalysisResult {
 }
 
 export function ReportForm({ onComplete }: ReportFormProps) {
+  const { data: session } = useSession();
   const [formData, setFormData] = useState({
     incidentType: "" as ReportType,
     specificType: "",
@@ -144,6 +146,11 @@ export function ReportForm({ onComplete }: ReportFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!session?.user) {
+      alert("Please sign in to submit a report");
+      return;
+    }
+    
     // Comprehensive list of inappropriate terms
     const blockedTerms = [
       // Funny/joking terms
@@ -179,6 +186,7 @@ export function ReportForm({ onComplete }: ReportFormProps) {
         longitude: coordinates.longitude,
         image: image,
         status: "PENDING",
+        userId: session.user.id,
       };
 
       const response = await fetch("/api/reports/create", {
@@ -198,6 +206,7 @@ export function ReportForm({ onComplete }: ReportFormProps) {
       onComplete(result);
     } catch (error) {
       console.error("Error submitting report:", error);
+      alert("Failed to submit report. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

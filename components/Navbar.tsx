@@ -4,9 +4,11 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import MobileMenu from "./MobileMenu";
 import { ThemeToggle } from "./ui/theme-toggle";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { data: session, status } = useSession();
 
   return (
     <>
@@ -93,6 +95,42 @@ export default function Navbar() {
 
             {/* Right Section */}
             <div className="flex items-center space-x-4">
+              {/* User Authentication Section */}
+              {status === "loading" ? (
+                <div className="w-8 h-8 border-2 border-[#07D348] border-t-transparent rounded-full animate-spin"></div>
+              ) : session ? (
+                <div className="flex items-center space-x-4">
+                  <Link
+                    href={session.user.role === "USER" ? "/user-dashboard" : "/dashboard"}
+                    className="text-sm text-gray-600 dark:text-zinc-300 light:text-gray-700
+                             hover:text-gray-900 dark:hover:text-white light:hover:text-gray-900
+                             transition-colors font-medium"
+                  >
+                    Dashboard
+                  </Link>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm text-gray-600 dark:text-zinc-300">
+                      {session.user.name}
+                    </span>
+                    <button
+                      onClick={() => signOut()}
+                      className="text-sm text-red-600 hover:text-red-700 transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  href="/auth/signin"
+                  className="text-sm text-gray-600 dark:text-zinc-300 light:text-gray-700
+                           hover:text-gray-900 dark:hover:text-white light:hover:text-gray-900
+                           transition-colors font-medium"
+                >
+                  Sign In
+                </Link>
+              )}
+
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
