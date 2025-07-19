@@ -23,46 +23,46 @@ export default function Navbar() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex h-16 items-center justify-between">
             {/* Logo and Brand */}
-        <motion.div 
-  className="flex items-center space-x-3"
-  whileHover={{ scale: 1.02 }}
-  transition={{ duration: 0.2 }}
->
-  <Link 
-    href="/" 
-    className="flex items-center space-x-3 group transition-all"
-  >
-    <motion.div 
-      className="h-9 w-9 rounded-xl bg-gradient-to-br from-[#07D348] to-[#24fe41] 
-               flex items-center justify-center shadow-[0_0_20px_-5px_#07D348] 
-               transition-transform group-hover:scale-105"
-      whileHover={{ 
-        boxShadow: "0 0 30px -5px #07D348",
-        rotate: [0, -5, 5, 0]
-      }}
-      transition={{ duration: 0.3 }}
-    >
-      <svg
-        className="h-5 w-5 text-white"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
-        />
-      </svg>
-    </motion.div>
-    <span className="text-lg font-bold bg-gradient-to-r from-gray-900 to-gray-700 
-                   dark:from-white dark:to-gray-300 bg-clip-text text-transparent
-                   light:from-gray-900 light:to-gray-700">
-      CivicSafe
-    </span>
-  </Link>
-</motion.div>
+            <motion.div 
+              className="flex items-center space-x-3"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Link 
+                href="/" 
+                className="flex items-center space-x-3 group transition-all"
+              >
+                <motion.div 
+                  className="h-9 w-9 rounded-xl bg-gradient-to-br from-[#07D348] to-[#24fe41] 
+                           flex items-center justify-center shadow-[0_0_20px_-5px_#07D348] 
+                           transition-transform group-hover:scale-105"
+                  whileHover={{ 
+                    boxShadow: "0 0 30px -5px #07D348",
+                    rotate: [0, -5, 5, 0]
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <svg
+                    className="h-5 w-5 text-white"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                    />
+                  </svg>
+                </motion.div>
+                <span className="text-lg font-bold bg-gradient-to-r from-gray-900 to-gray-700 
+                               dark:from-white dark:to-gray-300 bg-clip-text text-transparent
+                               light:from-gray-900 light:to-gray-700">
+                  CivicSafe
+                </span>
+              </Link>
+            </motion.div>
 
             {/* Main Navigation */}
             <div className="hidden md:flex items-center space-x-8">
