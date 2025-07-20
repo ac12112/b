@@ -150,6 +150,7 @@ export default function SmartNotifications() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
             className="absolute right-0 top-full mt-2 w-96 bg-zinc-900/95 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl z-50"
+            style={{ zIndex: 9999 }}
           >
             {/* Header */}
             <div className="p-4 border-b border-white/10">
