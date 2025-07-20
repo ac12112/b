@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react"; // Explicitly import React for JSX
 import { useSession } from "next-auth/react";
 import { useEffect, useState, useRef } from "react";
 import { Report, ReportStatus, ReportType } from "@prisma/client";
@@ -58,6 +59,8 @@ export default function UserDashboard() {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
@@ -208,7 +211,7 @@ export default function UserDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden relative">
+    <div className="min-h-screen bg-black text-white relative">
       {/* Canvas for smooth particles */}
       <canvas
         ref={canvasRef}
@@ -227,36 +230,41 @@ export default function UserDashboard() {
         @keyframes float-delayed { 0% { transform: translateY(0); } 50% { transform: translateY(-30px); } 100% { transform: translateY(0); } }
       `}</style>
       
-      <nav className="relative z-10 bg-gray-900/90 backdrop-blur-2xl border-b border-gray-800 sticky top-0 shadow-xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <motion.h1
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-2xl font-bold bg-gradient-to-r from-[#07D348] to-[#24fe41] bg-clip-text text-transparent"
-            >
-              CivicSafe User Portal
-            </motion.h1>
-            <div className="flex items-center gap-6">
-              <SmartNotifications />
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#07D348] to-[#24fe41] flex items-center justify-center shadow-md">
-                  <span className="text-sm font-bold text-white">
-                    {session?.user?.name?.charAt(0) || "U"}
+      <nav className="relative z-10 bg-gray-900/90 border-b border-gray-800 sticky top-0 shadow-xl">
+        <div className="backdrop-blur-2xl">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              <motion.h1
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-2xl font-bold bg-gradient-to-r from-[#07D348] to-[#24fe41] bg-clip-text text-transparent"
+              >
+                CivicSafe User Portal
+              </motion.h1>
+              <div className="flex items-center gap-6">
+                <div className="relative z-50">
+                  {/* Ensure SmartNotifications dropdown appears above all elements */}
+                  <SmartNotifications />
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#07D348] to-[#24fe41] flex items-center justify-center shadow-md">
+                    <span className="text-sm font-bold text-white">
+                      {session?.user?.name?.charAt(0) || "U"}
+                    </span>
+                  </div>
+                  <span className="text-sm font-medium text-gray-100">
+                    {session?.user?.name || "User"}
                   </span>
                 </div>
-                <span className="text-sm font-medium text-gray-100">
-                  {session?.user?.name || "User"}
-                </span>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => signOut()}
+                  className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 shadow-lg"
+                >
+                  Sign Out
+                </motion.button>
               </div>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => signOut()}
-                className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 shadow-lg"
-              >
-                Sign Out
-              </motion.button>
             </div>
           </div>
         </div>
