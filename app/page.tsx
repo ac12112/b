@@ -9,15 +9,17 @@ import WeatherWidget from "@/components/advanced/WeatherWidget";
 import SafetyChatbot from "@/components/SafetyChatbot";
 import Link from "next/link";
 import Image from "next/image";
-import EnhancedGrid from "@/components/enhanced/EnhancedGrid";
+import StunningGrid from "@/components/enhanced/StunningGrid";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeFAQ, setActiveFAQ] = useState(null);
   const canvasRef = useRef(null);
-  const featureGridRef = useRef(null);
   const threeContainerRef = useRef(null);
   const testimonialRef = useRef(null);
+  const heroTextRef = useRef(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
 
   const sliderImages = [
     { id: 1080, text: "Emergency Response Teams" },
@@ -131,93 +133,6 @@ export default function Home() {
     return () => {
       window.removeEventListener('resize', handleResize);
       threeContainerRef.current?.removeChild(renderer.domElement);
-    };
-  }, []);
-
-  // Enhanced Feature Grid Hover Effects
-  useEffect(() => {
-    if (!featureGridRef.current) return;
-
-    const features = featureGridRef.current.querySelectorAll('.feature-item');
-    
-    features.forEach((feature, index) => {
-      const image = feature.querySelector('.feature-image');
-      
-      feature.addEventListener('mouseenter', () => {
-        gsap.to(feature, {
-          scale: 1.05,
-          boxShadow: '0 0 30px -5px rgba(7, 211, 72, 0.5)',
-          duration: 0.3,
-          ease: 'power2.out'
-        });
-        
-        gsap.to(image, {
-          opacity: 1,
-          scale: 1,
-          duration: 0.3,
-          ease: 'power2.out'
-        });
-
-        // Create glowing particles
-        for (let i = 0; i < 15; i++) {
-          const particle = document.createElement('div');
-          particle.className = 'absolute w-2 h-2 bg-[#07D348] rounded-full pointer-events-none glow-particle';
-          particle.style.left = `${Math.random() * 100}%`;
-          particle.style.top = `${Math.random() * 100}%`;
-          feature.appendChild(particle);
-
-          gsap.to(particle, {
-            x: (Math.random() - 0.5) * 150,
-            y: (Math.random() - 0.5) * 150,
-            opacity: 0,
-            scale: 0,
-            duration: 1.2,
-            ease: 'power2.out',
-            onComplete: () => feature.removeChild(particle)
-          });
-        }
-      });
-
-      feature.addEventListener('mousemove', (e) => {
-        const rect = feature.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        gsap.to(image, {
-          x: x * 0.2,
-          y: y * 0.2,
-          rotation: x * 0.02,
-          duration: 0.4,
-          ease: 'power2.out'
-        });
-      });
-
-      feature.addEventListener('mouseleave', () => {
-        gsap.to(feature, {
-          scale: 1,
-          boxShadow: '0 0 20px -10px rgba(7, 211, 72, 0.2)',
-          duration: 0.3,
-          ease: 'power2.out'
-        });
-        
-        gsap.to(image, {
-          x: 0,
-          y: 0,
-          rotation: 0,
-          opacity: 0,
-          scale: 0.8,
-          duration: 0.3,
-          ease: 'power2.out'
-        });
-      });
-    });
-
-    return () => {
-      features.forEach(feature => {
-        feature.removeEventListener('mouseenter', () => {});
-        feature.removeEventListener('mousemove', () => {});
-        feature.removeEventListener('mouseleave', () => {});
-      });
     };
   }, []);
 
@@ -384,6 +299,24 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [sliderImages.length]);
 
+  // Hero text hover effect
+  const handleMouseMove = (e) => {
+    if (!heroTextRef.current) return;
+    const rect = heroTextRef.current.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
+
   // Generate rain particles
   const generateRainParticles = () => {
     const particles = [];
@@ -455,7 +388,33 @@ export default function Home() {
             Secure & Anonymous Reporting
           </div>
 
-          <h1 className="mt-8 bg-gradient-to-b from-white to-white/80 bg-clip-text text-5xl font-bold tracking-tight text-transparent sm:text-6xl md:text-7xl lg:text-8xl">
+          <h1 
+            ref={heroTextRef}
+            className="mt-8 bg-gradient-to-b from-white to-white/80 bg-clip-text text-5xl font-bold tracking-tight text-transparent sm:text-6xl md:text-7xl lg:text-8xl relative cursor-pointer overflow-hidden"
+            onMouseMove={handleMouseMove}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {/* Watery hover effect */}
+            {isHovering && (
+              <div 
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, 
+                    rgba(7, 211, 72, 0.3) 0%, 
+                    rgba(36, 254, 65, 0.2) 30%, 
+                    transparent 70%)`,
+                  filter: 'blur(20px)',
+                  animation: 'ripple 0.6s ease-out'
+                }}
+              />
+            )}
+            {/* Reveal image on hover */}
+            {isHovering && (
+              <div className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none">
+                <Image src="https://picsum.photos/id/1015/800/600" alt="Safety" fill className="object-cover" />
+              </div>
+            )}
             Report Incident
             <span className="block mt-3 bg-gradient-to-r from-[#fdfc47] to-[#24fe41] bg-clip-text text-transparent relative">
               Protect Public Safety
@@ -498,7 +457,7 @@ export default function Home() {
 
         {/* Enhanced Features Grid Section */}
         <section className="mt-20 relative">
-          <EnhancedGrid />
+          <StunningGrid />
         </section>
 
         {/* Community Safety in Action Slider */}
@@ -771,6 +730,10 @@ export default function Home() {
           animation: marquee 15s linear infinite;
           display: flex;
           width: max-content;
+        }
+        @keyframes ripple {
+          0% { transform: scale(0); opacity: 1; }
+          100% { transform: scale(1); opacity: 0; }
         }
         .animate-pulse-glow {
           animation: pulse-glow 2s ease-in-out infinite;
