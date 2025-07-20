@@ -4,6 +4,8 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 import L from "leaflet";
 
 interface EmergencyService {
@@ -44,6 +46,14 @@ interface BlogPost {
   excerpt: string;
   date: string;
   image: string;
+}
+
+interface Post {
+  id: string;
+  title: string;
+  excerpt: string;
+  createdAt: string;
+  author: { name: string };
 }
 
 const SecurityIcon = ({ className }: { className?: string }) => (
@@ -115,6 +125,8 @@ const BLOG_POSTS: BlogPost[] = [
 
 export default function EmergencyDashboard() {
   const [location, setLocation] = useState<string>("");
+  const { data: session } = useSession();
+  const [posts, setPosts] = useState<Post[]>([]);
   const [locationError, setLocationError] = useState<string>("");
   const [comments, setComments] = useState<any[]>([]);
   const [comment, setComment] = useState("");
@@ -123,6 +135,22 @@ export default function EmergencyDashboard() {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markerRef = useRef<L.Marker | null>(null);
+
+  // Fetch posts
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('/api/posts');
+        if (response.ok) {
+          const data = await response.json();
+          setPosts(data);
+        }
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    };
+    fetchPosts();
+  }, []);
 
   // Canvas particle animation
   useEffect(() => {
@@ -358,6 +386,79 @@ export default function EmergencyDashboard() {
           </div>
 
           <motion.div
+        {/* Latest News & Blog Section */}
+        <section className="mt-40">
+          <div className="flex justify-between items-center mb-16">
+            <h2 className="text-4xl font-bold text-white">
+              Latest News & Updates
+              <span className="block text-xl mt-2 text-[#07D348]">Stay informed with community updates</span>
+            </h2>
+            {session?.user?.role === 'ADMIN' && (
+              <Link href="/admin/create-post">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-gradient-to-r from-[#07D348] to-[#24fe41] text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity shadow-lg"
+                >
+                  Create New Post
+                </motion.button>
+              </Link>
+            )}
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {posts.length > 0 ? posts.map((post) => (
+              <motion.div
+                key={post.id}
+                whileHover={{ scale: 1.02 }}
+                className="bg-zinc-900/70 backdrop-blur-xl rounded-2xl border border-white/10 p-6 hover:border-[#07D348]/30 transition-all"
+              >
+                <h3 className="text-xl font-semibold text-white mb-3">{post.title}</h3>
+                <p className="text-zinc-300 mb-4 line-clamp-3">{post.excerpt}</p>
+                <div className="flex justify-between items-center text-sm text-zinc-400">
+                  <span>By {post.author.name}</span>
+                  <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                </div>
+              </motion.div>
+            )) : BLOG_POSTS.map((post) => (
+              <motion.div
+                key={post.id}
+                whileHover={{ scale: 1.02 }}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent shadow-md hover:shadow-[#07D348]/30"
+              >
+                <div className="relative h-48 bg-zinc-900">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                </div>
+
+                <div className="p-6">
+                  <p className="text-sm text-[#07D348] mb-2">{post.date}</p>
+                  <h3 className="text-xl font-semibold text-white mb-3">{post.title}</h3>
+                  <p className="text-zinc-300 mb-4">{post.excerpt}</p>
+                  <button className="text-[#07D348] flex items-center gap-2 group-hover:text-[#24fe41] transition-colors">
+                    Read More
+                    <svg
+                      className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
